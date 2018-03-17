@@ -22,10 +22,10 @@ private fun drawMap(map: CellMap, prefix: String = "     ", spacingH: Int = 1, s
     return sb.toString()
 }
 
-private fun drawHeader(generation: Int, map: CellMap, prefix: String = "     "): String {
+private fun drawHeader(generation: Int, map: CellMap, prefix: String = "     ", spacingH: Int = 1): String {
     val prefixString = "$prefix::: Conway "
     val suffixString = " generation $generation :::"
-    val centerWidth = map.w - (prefix.length + suffixString.length)
+    val centerWidth = (map.w * (spacingH + 1)) - (prefixString.length + suffixString.length)
     val centerString = if (centerWidth > 0) "-".repeat(centerWidth) else ""
     return "$prefixString$centerString$suffixString\n\n"
 }
@@ -38,13 +38,14 @@ fun drawScreen(cellMap: CellMap, generation: Int) {
 
 class AsciiMapDrawer(startingMap: CellMap? = null): MapInterface(startingMap = startingMap) {
 
-    private val console = BufferedReader(InputStreamReader(System.`in`))
+    private val console: BufferedReader = BufferedReader(System.console()?.reader() ?: InputStreamReader(System.`in`))
 
     override fun drawMap(m: CellMap, g: Int) {
         drawScreen(m, g)
     }
 
     override fun waitForHuman(): Boolean {
+        print("? ")
         return console.readLine() != "q"
     }
 }

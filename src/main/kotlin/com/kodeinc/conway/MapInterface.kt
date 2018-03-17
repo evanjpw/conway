@@ -3,9 +3,6 @@ package com.kodeinc.conway
 import com.kodeinc.conway.algorithm.CellMap
 import com.kodeinc.conway.algorithm.evolveMapB3S23
 
-const val DEF_WIDTH = 50
-const val DEF_HEIGHT = 50
-
 typealias MapEvolver = (map: CellMap) -> CellMap
 
 abstract class MapInterface(width: Int = DEF_WIDTH,
